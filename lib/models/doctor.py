@@ -1,7 +1,11 @@
-from models.__init__ import CURSOR, CONN
 
-class Doctor:
-    all = []
+from sqlalchemy import Column, Integer, String
+from lib.database import Base, session
+
+class Doctor(Base):
+    __tablename__ = "doctors"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
 
     def __init__(self, id, name):
         self.id = id
@@ -31,40 +35,18 @@ class Doctor:
 
     @classmethod
     def get_all(cls):
-        sql = """ 
-        SELECT * FROM doctors
-        """
-
-        row = CURSOR.execute(sql).fetchall()
-        return cls(row['id'], row['name']) if row else None
-    
+        return session.query(cls).all()
+        
     @classmethod
     def find_by_id(cls, id):
-        sql = """ 
-        SELECT * FROM doctors
-        WHERE id is ?
-        """
-
-        row = CURSOR.execute(sql, (id,)).fetchone()
-        return cls(row['id'], row['name']) if row else None
+      return session.query(cls).filter_by(id=id).first()
     
     @classmethod
     def find_by_name(cls, name):
-        sql = """ 
-        SELECT * FROM doctors
-        WHERE name is ?
-        """
-
-        row = CURSOR.execute(sql, (name,)).fetchone()
-        return cls(row['id'], row['name']) if row else None
+      return session.query(cls).filter_by(name=name).first()
         
     def save(self):
-        sql = """ 
-        INSERT INTO doctors(id, name)
-        VALUES (?, ?)"""
+        session.add(self)
+        session.commit()
+
         
-        CURSOR.execute(sql, (self.id, self.name))
-        CONN.commit()
-
-        self.id = CURSOR.lastrowid
-

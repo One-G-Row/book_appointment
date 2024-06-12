@@ -1,4 +1,14 @@
-from .connection import get_db_connection
+# lib/database/setup.py
+
+from lib.database import create_tables
+
+def main():
+    create_tables()
+
+if __name__ == "__main__":
+    main()
+
+""" from .connection import get_db_connection
 
 def create_tables():
    conn = get_db_connection()
@@ -35,3 +45,4 @@ def create_tables():
    conn.close()
 
 
+ """
