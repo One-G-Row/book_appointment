@@ -1,6 +1,8 @@
 # main.py
-from database import session
-from models import Doctor, User, Appointment
+from lib.database.connection import session
+from lib.models.doctor import Doctor
+from lib.models.user import User
+from lib.models.appointment import Appointment
 
 def main():
     # Get user input

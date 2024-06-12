@@ -1,12 +1,14 @@
-# lib/database/setup.py
+from lib.database.connection import Base, engine
+from lib.models.doctor import Doctor
+from lib.models.user import User
+from lib.models.appointment import Appointment
 
-from lib.database import create_tables
-
-def main():
-    create_tables()
+def create_tables():
+    Base.metadata.create_all(engine)
 
 if __name__ == "__main__":
-    main()
+    create_tables()
+
 
 """ from .connection import get_db_connection
 

@@ -1,5 +1,5 @@
 # create_tables.py
-from lib.database import create_tables
+from database import create_tables
 
 def main():
     create_tables()

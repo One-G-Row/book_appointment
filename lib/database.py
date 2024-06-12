@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Create an engine and a declarative base
-engine = create_engine('sqlite:///booking.db')
+engine = create_engine('sqlite:///database/booking.db')
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()

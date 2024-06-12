@@ -1,11 +1,22 @@
 
 from sqlalchemy import Column, Integer, String
-from lib.database import Base, session
+from lib.database.connection import Base, session
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+#from lib.database.connection import Base, session
+
+engine = create_engine('your_database_url')
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Create the base class for the models
+Base = declarative_base()
 
 class Doctor(Base):
     __tablename__ = "doctors"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable = False)
 
     def __init__(self, id, name):
         self.id = id

@@ -1,11 +1,14 @@
-# lib/database/connection.py
-# If using raw SQLite connections, but not needed with SQLAlchemy ORM
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-def get_db_connection():
-    conn = sqlite3.connect('booking.db')
-    return conn
 
+#def get_db_connection():
+engine = create_engine('sqlite:///booking.db')
+Base = declarative_base()
+Session = sessionmaker(bind=engine)
+session = Session()
+    #return engine, Base, session
 
 """ import sqlite3
 
